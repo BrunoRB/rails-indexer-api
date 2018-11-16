@@ -36,7 +36,7 @@ class PagesController < ApplicationController
       values = []
       doc = Nokogiri::HTML(htmlStr)
 
-      # ActiveRecord::Base.transaction do
+      ActiveRecord::Base.transaction do
 
         page = Page.find_by(url: url)
         if !page || !page.id
@@ -54,7 +54,7 @@ class PagesController < ApplicationController
         Indexed.import [:c_type, :content, :pages_id], values, :validate => true
 
         render json: JSONAPI::ResourceSerializer.new(PageResource).serialize_to_hash(PageResource.new(page, nil))
-      # end
+      end
     rescue StandardError => e
       self._sendError e.message
     end
