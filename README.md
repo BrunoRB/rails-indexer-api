@@ -14,6 +14,10 @@ Run with
 
 then
 
+`bin/rails db:migrate`
+
+then
+
  `bin/rails server`
 
 
